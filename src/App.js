@@ -5,17 +5,24 @@ import Header from './components/layout/Header';
 import { Route, Routes } from 'react-router-dom';
 import Join from './components/user/Join';
 import Login from './components/user/Login';
+import { AuthContextProvider } from './utils/AuthContext';
 
 function App() {
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<TodoTemplate />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/join" element={<Join />} />
-      </Routes>
-      <Footer />
+      <AuthContextProvider>
+        <div className="wrapper">
+          <Header />
+          <div className="content-wrapper">
+            <Routes>
+              <Route path="/" element={<TodoTemplate />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/join" element={<Join />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
+      </AuthContextProvider>
     </>
   );
 }
