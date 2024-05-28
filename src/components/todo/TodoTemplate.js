@@ -34,13 +34,8 @@ const TodoTemplate = () => {
     handleRequest(
       () => axiosInstance.post(API_BASE_URL, newTodo),
       (data) => setTodos(data.todos),
-      (error) => {
-        if (error.response && error.response === 401) {
-          alert('로그인 시간이 만료되었습니다. 다시 로그인 해 주세요.');
-          onLogout();
-          redirection('/login');
-        }
-      },
+      onLogout,
+      redirection,
     );
   };
 
@@ -49,13 +44,8 @@ const TodoTemplate = () => {
     handleRequest(
       () => axiosInstance.delete(`${API_BASE_URL}/${id}`),
       (data) => setTodos(data.todos),
-      (error) => {
-        if (error.response && error.response === 401) {
-          alert('로그인 시간이 만료되었습니다. 다시 로그인 해 주세요.');
-          onLogout();
-          redirection('/login');
-        }
-      },
+      onLogout,
+      redirection,
     );
   };
 
@@ -68,13 +58,8 @@ const TodoTemplate = () => {
           done: !done,
         }),
       (data) => setTodos(data.todos),
-      (error) => {
-        if (error.response && error.response === 401) {
-          alert('로그인 시간이 만료되었습니다. 다시 로그인 해 주세요.');
-          onLogout();
-          redirection('/login');
-        }
-      },
+      onLogout,
+      redirection,
     );
   };
 
@@ -90,15 +75,8 @@ const TodoTemplate = () => {
         localStorage.setItem('USER_ROLE', data.role);
         setToken(data.token);
       },
-      (error) => {
-        if (error.response && error.response === 401) {
-          alert('로그인 시간이 만료되었습니다. 다시 로그인 해 주세요.');
-          onLogout();
-          redirection('/login');
-        } else if (error.response === 400) {
-          alert('이미 프리미엄 회원입니다.');
-        }
-      },
+      onLogout,
+      redirection,
     );
   };
 
@@ -110,14 +88,8 @@ const TodoTemplate = () => {
         setTodos(data.todos);
         setLoading(false);
       },
-      (error) => {
-        console.log(error.response);
-        if (error.response && error.response === 401) {
-          alert('로그인 시간이 만료되었습니다. 다시 로그인 해 주세요.');
-          onLogout();
-          redirection('/login');
-        }
-      },
+      onLogout,
+      redirection,
     );
   }, []);
 
